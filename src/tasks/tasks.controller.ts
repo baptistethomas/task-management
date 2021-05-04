@@ -34,14 +34,14 @@ export class TasksController {
   }
 
   @Delete('/:id')
-  deleteTask(@Param('id') id: number): Promise<void> {
+  deleteTask(@Param('id', ParseIntPipe) id: number): Promise<void> {
     return this.tasksService.deleteTask(id);
   }
 
   @Patch('/:id')
   @UsePipes(ValidationPipe)
   updateTask(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateTaskDto: UpdateTaskDto,
   ): Promise<Task> {
     return this.tasksService.updateTask(id, updateTaskDto);
