@@ -16,6 +16,7 @@ import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { Task } from './task.entity';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -32,6 +33,20 @@ export class TasksController {
     return this.tasksService.createTask(createTaskDto);
   }
 
+  @Delete('/:id')
+  deleteTask(@Param('id') id: number): Promise<void> {
+    return this.tasksService.deleteTask(id);
+  }
+
+  @Patch('/:id')
+  @UsePipes(ValidationPipe)
+  updateTask(
+    @Param('id') id: number,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ): Promise<Task> {
+    return this.tasksService.updateTask(id, updateTaskDto);
+  }
+
   /*
   @Get()
   getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Task[] {
@@ -39,11 +54,6 @@ export class TasksController {
       return this.tasksService.getTasksWithFilters(filterDto);
     }
     return this.tasksService.gelAllTasks();
-  }
-
-  @Delete('/:id')
-  deleteTask(@Param('id') id: string): void {
-    return this.tasksService.deleteTask(id);
   }
 
   @Patch('/:id/status')
