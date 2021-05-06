@@ -47,21 +47,8 @@ export class TasksController {
     return this.tasksService.updateTask(id, updateTaskDto);
   }
 
-  /*
   @Get()
-  getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Task[] {
-    if (Object.keys(filterDto).length) {
-      return this.tasksService.getTasksWithFilters(filterDto);
-    }
-    return this.tasksService.gelAllTasks();
+  getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Promise<Task[]> {
+    return this.tasksService.getTasks(filterDto);
   }
-
-  @Patch('/:id/status')
-  updateTaskStatus(
-    @Param('id') id: string,
-    @Body('status') status: TaskStatus,
-  ) {
-    return this.tasksService.updateTaskStatus(id, status);
-  }
-  */
 }
