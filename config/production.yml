@@ -1,2 +1,5 @@
+server:
+  origin: 'S3_BUCKET_URI'
+
 db:
   synchronize: false
